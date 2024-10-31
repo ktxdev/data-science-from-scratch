@@ -1,5 +1,7 @@
-from collections import Counter
 from typing import List
+from collections import Counter
+
+from linalg import sum_of_squares
 
 
 # Central Tendency functions
@@ -43,6 +45,17 @@ def data_range(xs: List[float]) -> float:
     """Return the range of a list of numbers."""
     return max(xs) - min(xs)
 
+def de_mean(xs: List[float]) -> List[float]:
+    """Translate xs by subtracting its mean (so the result has mean 0)"""
+    x_bar = mean(xs)
+    return [x - x_bar for x in xs]
+
+def variance(xs: List[float]) -> float:
+    """Almost the average squared deviation from the mean"""
+    assert len(xs) >= 2, "variance requires at least two elements"
+    n = len(xs)
+    deviations = de_mean(xs)
+    return sum_of_squares(deviations) / (n - 1)
 
 if __name__ == "__main__":
     # Testing median
