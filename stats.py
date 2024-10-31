@@ -2,6 +2,7 @@ from collections import Counter
 from typing import List
 
 
+# Central Tendency functions
 def mean(xs: List[float]) -> float:
     """Calculate the mean of a list of numbers."""
     return sum(xs) / len(xs)
@@ -35,6 +36,12 @@ def mode(xs: List[float]) -> List[float]:
     counts = Counter(xs)
     max_count = max(counts.values())
     return [x_i for x_i, count in counts.items() if count == max_count]
+
+
+# Dispersion functions
+def data_range(xs: List[float]) -> float:
+    """Return the range of a list of numbers."""
+    return max(xs) - min(xs)
 
 
 if __name__ == "__main__":
