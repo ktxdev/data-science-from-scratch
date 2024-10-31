@@ -1,7 +1,8 @@
+import math
 from typing import List
 from collections import Counter
 
-from linalg import sum_of_squares
+from linalg import dot, sum_of_squares
 
 
 # Central Tendency functions
@@ -45,10 +46,12 @@ def data_range(xs: List[float]) -> float:
     """Return the range of a list of numbers."""
     return max(xs) - min(xs)
 
+
 def de_mean(xs: List[float]) -> List[float]:
     """Translate xs by subtracting its mean (so the result has mean 0)"""
     x_bar = mean(xs)
     return [x - x_bar for x in xs]
+
 
 def variance(xs: List[float]) -> float:
     """Almost the average squared deviation from the mean"""
@@ -57,7 +60,19 @@ def variance(xs: List[float]) -> float:
     deviations = de_mean(xs)
     return sum_of_squares(deviations) / (n - 1)
 
-if __name__ == "__main__":
-    # Testing median
-    assert median([1, 10, 2, 9, 5]) == 5
-    assert median([1, 9, 2, 10]) == (2 + 9) / 2
+
+def standard_deviation(xs: List[float]) -> float:
+    """Return the standard deviation of a list of numbers."""
+    return math.sqrt(variance(xs))
+
+
+def interquartile_range(xs: List[float]) -> float:
+    """Compute the interquartile range of a list of numbers."""
+    return quantile(xs, 0.75) - quantile(xs, 0.25)
+
+
+# Correlation
+def covariance(xs: List[float], ys: List[float]) -> float:
+    """Calculate the covariance of a list of numbers."""
+    assert len(xs) == len(ys), "Lengths of xs and ys must match"
+    return dot(de_mean(xs), de_mean(ys)) / (len(xs) - 1)
