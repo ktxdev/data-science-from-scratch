@@ -73,6 +73,16 @@ def interquartile_range(xs: List[float]) -> float:
 
 # Correlation
 def covariance(xs: List[float], ys: List[float]) -> float:
-    """Calculate the covariance of a list of numbers."""
+    """Calculate the covariance of 2 lists of numbers."""
     assert len(xs) == len(ys), "Lengths of xs and ys must match"
     return dot(de_mean(xs), de_mean(ys)) / (len(xs) - 1)
+
+
+def correlation(xs: List[float], ys: List[float]) -> float:
+    """Calculate the correlation of 2 lists of numbers."""
+    stdev_x = standard_deviation(xs)
+    stdev_y = standard_deviation(ys)
+    if stdev_x > 0 and stdev_y > 0:
+        return covariance(xs, ys) / stdev_x / stdev_y
+    else:
+        return 0
