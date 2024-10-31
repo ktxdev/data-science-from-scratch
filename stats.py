@@ -18,6 +18,12 @@ def median(xs: List[float]) -> float:
     """Calculate the median of a list of numbers."""
     return _median_even(xs) if len(xs) % 2 == 0 else _median_odd(xs)
 
+def quantile(xs: List[float], p: float) -> float:
+    """Return the pth-percentile value in xs."""
+    p_index = int(len(xs) * p)
+    return xs[p_index]
+
+
 if __name__ == "__main__":
     # Testing median
     assert median([1, 10, 2, 9, 5]) == 5
